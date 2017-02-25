@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <script src="three.js"></script>
+    <script src="stat.js"></script>
+
+    <script>
+       window.onload = function () {
+           var renderer = new THREE.WebGLRenderer();
+           renderer.setSize(600,400);
+           renderer.setClearColor(0xcccccc);
+           document.getElementsByTagName('body')[0].appendChild(renderer.domElement);
+
+           var scene= new THREE.Scene();
+
+           var camera = new THREE.OrthographicCamera(-3,3,2,-2,1,10);
+           camera.position.set(1,2,6);
+           camera.lookAt(new THREE.Vector3(0,0,0));
+
+           var cube = new THREE.Mesh(new THREE.CubeGeometry(2.5,1.5,1.5),
+               new THREE.MeshLambertMaterial({
+                   color:0xdddddd,
+                   emissive: 0x555555
+               })
+           );
+           cube.rotation.y=-10;
+
+           var material = new THREE.TorusGeometry(0.3,0.15,200,100);
+           var mesh = new THREE.MeshLambertMaterial({
+              color:0xdddddd,
+               emissive: 0x555555
+           });
+
+
+
+
+           var torus = new THREE.Mesh(material,mesh);
+           var torus1 = new THREE.Mesh(material,mesh);
+
+           torus.rotation.y=-10;
+           torus1.rotation.y=-10;
+           torus.position.set(-1.1,-0.7,0.1);
+           torus1.position.set(0.15,-0.7,0.93);
+
+           scene.add(torus);
+           scene.add(torus1);
+
+           var light = new THREE.PointLight(0xffffff,1,50);
+           light.position.set(2,3.5,4.5);
+           scene.add(light);
+
+           scene.add(cube);
+
+           scene.add(camera);
+
+           renderer.render(scene,camera);
+
+
+            //动画
+//           var stat = null;
+//
+//           function init() {
+//               stat = new Stats();
+//               stat.domElement.style.position = 'absolute';
+//               stat.domElement.style.right = '0px';
+//               stat.domElement.style.top = '0px';
+//               document.body.appendChild(stat.domElement);
+//
+//
+//           }
+//
+//           init();
+//
+//           var id = function draw() {
+//               stat.begin();
+//               torus.rotation.y = (torus.rotation.y + 0.01) % (Math.PI * 2);
+//               torus1.rotation.y = (torus1.rotation.y + 0.01) % (Math.PI * 2);
+//               cube.rotation.y = (cube.rotation.y + 0.01) % (Math.PI * 2);
+//               renderer.render(scene,camera);
+//               stat.end();
+//               id = requestAnimationFrame(draw);
+//
+//           };
+//
+//           id();
+
+
+       };
+    </script>
+</head>
+<body onload="init()">
+
+</body>
+</html>
